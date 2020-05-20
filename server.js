@@ -68,6 +68,18 @@ app.put("/api/workouts/:id", (req, res) => {
 	);
 });
 
+app.post("/api/workouts", (req,res) => {
+	db.Workout.create(req.body,
+		(err, data) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json(data);
+			}
+		}
+	);
+});
+
 // Start the server
 app.listen(PORT, () => {
 	console.log(`App running on port ${PORT}!`);
