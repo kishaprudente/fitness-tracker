@@ -15,19 +15,22 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessdb", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 	useNewUrlParser: true,
 });
 
-// app.get("/notes", (req, res) => {
-// 	db.Note.find({})
-// 		.then((dbNote) => {
-// 			res.json(dbNote);
-// 		})
-// 		.catch((err) => {
-// 			res.json(err);
-// 		});
-// });
+app.get("/", (req, res) => {
+	res.send(index.html);
+});
+
+app.get("/api/workouts", async (req, res) => {
+	try {
+		const allWorkouts = await db.Workout.find({});
+		res.json(allWorkouts);
+	} catch (err) {
+		res.send(err);
+	}
+});
 
 // Start the server
 app.listen(PORT, () => {
