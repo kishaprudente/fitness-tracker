@@ -53,6 +53,21 @@ app.get("/api/workouts/range", (req, res) => {
 	});
 });
 
+app.put("/api/workouts/:id", (req, res) => {
+	db.Workout.update({ _id: req.params.id },
+		{
+			$push: { exercises: req.body },
+		},
+		(err, data) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.json(data);
+			}
+		}
+	);
+});
+
 // Start the server
 app.listen(PORT, () => {
 	console.log(`App running on port ${PORT}!`);
