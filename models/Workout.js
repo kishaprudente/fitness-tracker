@@ -40,7 +40,6 @@ const WorkoutSchema = new Schema({
 			trim: true,
 		}
 	}]
-
 });
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
