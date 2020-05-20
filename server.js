@@ -33,6 +33,26 @@ app.get("/stats", (req, res) => {
 	res.sendFile(path.join(__dirname, "./public/stats.html"));
 });
 
+app.get("/api/workouts", (req, res) => {
+	db.Workout.find().sort({day: 1}).exec((err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.json(data);
+		}
+	});
+});
+
+app.get("/api/workouts/range", (req, res) => {
+	db.Workout.find({}, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.json(data);
+		}
+	});
+});
+
 // Start the server
 app.listen(PORT, () => {
 	console.log(`App running on port ${PORT}!`);
